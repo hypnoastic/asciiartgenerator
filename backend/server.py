@@ -8,7 +8,7 @@ app = FastAPI()
 # CORS setup to allow frontend to access this backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://asciigenerator.netlify.app"],  # Change this to your frontend origin in production
+    allow_origins=["*"],  # Change this to your frontend origin in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

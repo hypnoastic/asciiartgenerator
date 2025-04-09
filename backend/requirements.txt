@@ -1,4 +1,5 @@
-opencv-python~=4.11.0.86
-numpy~=2.2.4
-pillow~=11.1.0
-fastapi~=0.115.12
+fastapi
+uvicorn
+pillow
+opencv-python
+python-multipart

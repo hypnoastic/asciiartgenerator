@@ -22,3 +22,7 @@ async def upload_image(file: UploadFile = File(...)):
     ascii_buffer = image_to_highres_ascii_image(image_bytes)
 
     return StreamingResponse(ascii_buffer, media_type="image/png")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("server:app", host="0.0.0.0", port=8000)

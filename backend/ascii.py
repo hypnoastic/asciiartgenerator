@@ -5,7 +5,7 @@ from io import BytesIO
 
 def image_to_highres_ascii_image(
     image_bytes,
-    font_path="font/Courier.ttf",
+    font_path="font/couriernew.ttf",
     font_size=20,
     scale=0.6
 ):

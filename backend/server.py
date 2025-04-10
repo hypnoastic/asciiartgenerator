@@ -1,28 +1,28 @@
-from fastapi import FastAPI, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
-from ascii import image_to_highres_ascii_image
+from flask import Flask, request, send_file
+from ascii import image_to_highres_ascii_image  # Import your image processing logic
 
-app = FastAPI()
+app = Flask(__name__)
 
-# CORS setup to allow frontend to access this backend
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Change this to your frontend origin in production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit to 16MB
 
-@app.post("/upload/")
-async def upload_image(file: UploadFile = File(...)):
-    image_bytes = await file.read()
 
-    # Generate ASCII image in memory
+@app.route('/upload/', methods=['POST'])
+def upload_image():
+    if 'file' not in request.files:
+        return "No file part", 400
+
+    file = request.files['file']
+
+    # Check if the user has selected a file
+    if file.filename == '':
+        return "No selected file", 400
+
+    image_bytes = file.read()
+
     ascii_buffer = image_to_highres_ascii_image(image_bytes)
 
-    return StreamingResponse(ascii_buffer, media_type="image/png")
+    return send_file(ascii_buffer, mimetype='image/png')
+
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("server:app", host="0.0.0.0", port=8000)
+    app.run(debug=True, host="0.0.0.0", port=8000)

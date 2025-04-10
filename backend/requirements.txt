@@ -1,6 +1,5 @@
 opencv-python~=4.11.0.86
 numpy~=2.2.4
 pillow~=11.1.0
-uvicorn~=0.34.0
-fastapi~=0.115.12
 python-multipart
+Flask~=3.1.0

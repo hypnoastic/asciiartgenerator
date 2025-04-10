@@ -48,7 +48,7 @@ def image_to_highres_ascii_image(
     for i, line in enumerate(ascii_image):
         draw.text((0, i * char_height), line, fill="black", font=font)
 
-    # Save to BytesIO instead of a file
+    # Save to temporary storage instead of a file
     output_buffer = BytesIO()
     output_img.save(output_buffer, format="PNG")
     output_buffer.seek(0)

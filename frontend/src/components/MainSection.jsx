@@ -29,7 +29,7 @@ const MainSection = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://0.0.0.0:8000/upload/', {
+      const response = await fetch('https://ascii-backend-52ls.onrender.com/upload/', {
         method: 'POST',
         body: formData,
       });

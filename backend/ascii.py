@@ -7,7 +7,7 @@ def image_to_highres_ascii_image(
     image_bytes,
     font_path="font/couriernew.ttf",
     font_size=20,
-    scale=0.6
+    scale=0.5
 ):
     # Read image from bytes
     img_array = np.frombuffer(image_bytes, np.uint8)

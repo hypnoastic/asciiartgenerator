@@ -29,7 +29,7 @@ const MainSection = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('https://ascii-backend-5ntm.onrender.com/upload/', {
+      const response = await fetch('https://asciiartgenerator.onrender.com/upload/', {
         method: 'POST',
         body: formData,
       });

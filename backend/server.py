@@ -1,23 +1,29 @@
-from flask import Flask, request, send_file
-from flask_cors import CORS
+from bottle import Bottle, request, response, run
 from ascii import image_to_highres_ascii_image
 
-app = Flask(__name__)
+app = Bottle()
 
-# Enable CORS for all routes and origins
-CORS(app)
+# Manually add CORS headers to enable cross-origin requests
+@app.hook('after_request')
+def enable_cors():
+    response.headers['Access-Control-Allow-Origin'] = '*'  # Allow all origins, can change this to specific domains
+    response.headers['Access-Control-Allow-Methods'] = 'OPTIONS, GET, POST, PUT, DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, X-Requested-With, Accept'
 
-@app.route('/upload/', methods=['POST'])
+@app.post('/upload/')
 def upload_image():
-    file = request.files['file']
-    image_bytes = file.read()
+    # Get the uploaded file from the request
+    file = request.files.get('file')
+
+    # Read the image bytes from the file
+    image_bytes = file.file.read()
 
     # Generate ASCII image in memory
     ascii_buffer = image_to_highres_ascii_image(image_bytes)
 
-    # Send the image as a response
-    # Since ascii_buffer is already a BytesIO object, we can directly use it in send_file
-    return send_file(ascii_buffer, mimetype='image/png')
+    # Send the generated ASCII image as a response
+    response.content_type = 'image/png'
+    return ascii_buffer  # Return the image directly from memory
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    run(app, host="0.0.0.0", port=8000, debug=True)

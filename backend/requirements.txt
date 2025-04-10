@@ -1,6 +1,4 @@
 opencv-python~=4.11.0.86
 numpy~=2.2.4
 pillow~=11.1.0
-python-multipart
-Flask~=3.1.0
-flask-cors~=5.0.1
+bottle~=0.13.2

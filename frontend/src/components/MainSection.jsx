@@ -29,7 +29,7 @@ const MainSection = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/upload/', {
+      const response = await fetch('http://0.0.0.0:8000/upload/', {
         method: 'POST',
         body: formData,
       });

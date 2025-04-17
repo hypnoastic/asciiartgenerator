@@ -9,7 +9,7 @@ def image_to_highres_ascii_image(
     font_size=20,
     scale=0.5
 ):
-    # Read image from bytes
+    # Read image from temp
     img_array = np.frombuffer(image_bytes, np.uint8)
     img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
@@ -48,7 +48,7 @@ def image_to_highres_ascii_image(
     for i, line in enumerate(ascii_image):
         draw.text((0, i * char_height), line, fill="black", font=font)
 
-    # Save to temporary storage instead of a file
+    # Save to temporary storage
     output_buffer = BytesIO()
     output_img.save(output_buffer, format="PNG")
     output_buffer.seek(0)
